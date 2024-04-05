@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "ostream": "c",
+        "*.tcc": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c",
+        "termios.h": "c",
+        "cerrno": "c",
+        "errno.h": "c"
+    }
+}

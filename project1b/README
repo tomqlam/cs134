@@ -1,0 +1,22 @@
+NAME: Tom Lam
+EMAIL: tlam@hmc.edu
+ID: 40210352
+
+Included files:
+lab1b-client.c: The source code for the client side of the assignment. This program should be run after server is run. Takes the following arguments:
+    - compress (flag): Uses the zlib library to perform compression on any traffic it sends out and decompresses any traffic it receives through a socket connection.
+    - log (takes argument): Writes the size of received and sent data and also the data itself to a log file that is specified as an argument; works with compress flag but data become unintelligible.
+    - port (required, takes argument): The port number that the client uses (should be same as the server port).
+
+lab1b-server.c: The source code for the server side of the assignment. This program should be run first. Takes the following arguments:
+    - compress (flag): Uses the zlib library to perform compression on any traffic it sends out and decompresses any traffic it receives through a socket connection.
+    - shell (takes argument): Path to shell program executable to be forked. The server forwards data received from the client to this shell program.
+    - port (required, takes argument): The port number that the server listens on (should be the same as the client port).
+
+Makefile: A file that builds the binaries for client and server, cleans the directory, or tars everything into a distributable.
+
+References:
+https://www.zlib.net/zpipe.c
+https://stackoverflow.com/questions/7540259/deflate-and-inflate-zlib-h-in-c
+http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
+https://man7.org/linux/man-pages/man3/fflush.3.html

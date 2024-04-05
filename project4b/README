@@ -1,0 +1,20 @@
+NAME: Tom Lam
+EMAIL: tlam@hmc.edu
+ID: 40210352
+
+Included files:
+lab4b.c: C source files for an embedded application that builds and runs (with no errors or warnings) on an embedded system. Takes the following options:
+    - period: how many seconds between each report
+    - scale: which temperature scale to report temps in (either C or F)
+    - log: which file to write report logs to
+
+Makefile: A file that builds the binaries for the C source file, cleans the directory, or tars everything into a distributable.
+
+References:
+https://www.geeksforgeeks.org/strtok-strtok_r-functions-c-examples/#
+https://www.tutorialspoint.com/c_standard_library/c_function_localtime.htm
+https://wiki.seeedstudio.com/Grove-Temperature_Sensor_V1.2/
+https://beagleboard.org/static/librobotcontrol/index.html
+https://man7.org/linux/man-pages/man3/fflush.3.html
+https://www.tutorialspoint.com/c_standard_library/c_function_localtime.htm
+https://www.tutorialspoint.com/c_standard_library/c_function_fclose.htm

@@ -1,0 +1,34 @@
+NAME: Tom Lam
+EMAIL: tlam@hmc.edu
+ID: 40210352
+
+backtrace.png: A screenshot of GDB showing the stack backtrace that occurs when the '--segfault' argument is specified.
+breakpoint.png: A screenshot of GDB showing that it has stopped at breakpoint and that the pointer 'bad_ptr' is indeed NULL.
+lab0.c: The source code providing the logic for the executable.
+Makefile: Contains the rules for compiling the executable, tarring the project, and testing the functionality.
+
+The tests described in the Makefile are meant to check that the copying functionality is there, the correct exit codes are returned depending on the error, and that the flags for segfault and signal handling are working properly. Each test is described below:
+
+test_invalid_argument: tests that an invalid argument will result in exit code 1, checks 3 different cases
+
+test_stdin_stdout: tests that the executable is able to read from default stdin and write to default stdout
+
+test_input_success: tests the executable can read from an empty and populated text file
+
+test_input_to_output: tests that after reading contents from an input file and writing it to an output file that the file contents are the same
+
+test_input_failure: tests that the exit code is 2 when the file that needs to be read is inaccessible
+
+test_output_failure: tests that the exit code is 3 when the output file cannot be created or modified
+
+test_segfault: tests that the exit code is 139 (segfault) when the '--segfault' flag is specified
+
+test_segfault_catch: tests that the exit code is 4 when both '--segfault' and '--catch' flags are specified
+
+test_normal_catch: tests that the program executes normally when the '--catch' flag is called but not the '--segfault' flag
+
+References:
+https://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Option-Example.html
+CS 105 Lectures (Signals, I/O)
+CS 105 Networking Lab (Makefile)
+https://www.tutorialspoint.com/ (syscalls)

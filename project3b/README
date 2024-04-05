@@ -1,0 +1,7 @@
+NAME: Tom Lam, Serena Mao
+EMAIL: tlam@hmc.edu, smao@hmc.edu
+ID: 40210352, 40210158
+
+lab3b.py: Python file to perform file consistency checks. Checks for inconsistencies with free lists, blocks, inodes, directories, etc. by parsing a .csv file. It takes in one file as an argument
+Makefile: to build and run the deliverable program, with default, dist, lab3b, clean targets.
+README: text file containing descriptions of each of the included files 

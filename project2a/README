@@ -1,0 +1,111 @@
+NAME: Tom Lam
+EMAIL: tlam@hmc.edu
+ID: 40210352
+SLIPDAYS: 1
+
+Included Files (descriptions adapted from course website):
+
+lab2_add.c: a C program that implements and tests a shared variable add function, implements the (below) specified command line options, and produces the (below) specified output statistics.
+
+SortedList.h: a header file (supplied by the course website) describing the interfaces for linked list operations.
+
+SortedList.c: a C module that implements insert, delete, lookup, and length methods for a sorted doubly linked list (described in the provided header file, including correct placement of yield calls).
+
+lab2_list.c: a C program that implements the (below) specified command line options and produces the (below) specified output statistics.
+
+lab2_add.csv: containing all of my results for all of the Part-1 tests.
+
+lab2_list.csv: containing all of my results for all of the Part-2 tests. 
+
+lab2_add-1.png: threads and iterations required to generate a failure (with and without yields)
+
+lab2_add-2.png: average time per operation with and without yields.
+
+lab2_add-3.png: average time per (single threaded) operation vs. the number of iterations.
+
+lab2_add-4.png: threads and iterations that can run successfully with yields under each of the synchronization options.
+
+lab2_add-5.png: average time per (protected) operation vs. the number of threads.
+
+lab2_list-1.png: average time per (single threaded) unprotected operation vs. number of iterations (illustrating the correction of the per-operation cost for the list length).
+
+lab2_list-2.png: threads and iterations required to generate a failure (with and without yields).
+
+lab2_list-3.png: iterations that can run (protected) without failure.
+
+lab2_list-4.png: (length-adjusted) cost per operation vs the number of threads for the various synchronization options.
+
+lab2_add.gp: an instructor provided script for generating the graphs for the add data
+
+lab2_list.gp: an instructor provided script for generating the graphs for the list data
+
+Makefile: builds distributable, executables, creates graphs and data
+
+Answers:
+2.1.1: It takes many iterations before errors are seen because at low numbers 
+of iterations. This is because the low number of iterations means that it is 
+unlikely that the thread time will exceed a given timeslice and be preempted 
+in the critical section if at all. A greater amount of iterations will make 
+it more likely that the thread is preempted while it is in a critical 
+section since it it more likely that the required CPU time will exceed the 
+length of the time slice.
+
+2.1.2: The yield runs are so much slower because there is a forced context 
+switch for every add operation which takes extra time, especially as the 
+number of iterations increases. The extra time is going to context switches. 
+It is not possible to get valid per-operation timings if we are using the 
+--yield option because the we don't know how much time the operation actually 
+takes versus how much time is taken by context switching.
+
+2.1.3: The average cost per operation drops with increasing iterations because 
+there is an initial constant setup cost to the threads that is included in 
+our timing. In low amounts of iterations there are less operations that this 
+initial setup is spread out over; the denominator is smaller. However, for 
+a larger amount of iterations, this initial constant setup cost becomes less 
+significant and is the cost is amortized over a larger # of operations. This 
+is why if we want to get to the "correct" cost, we should run as many 
+iterations as possible. The most iterations there are, the closer we approach 
+the "correct" value is the asymptotic value when the graph levels out.
+
+2.1.4: The options perform similarly for low numbers of threads because the 
+there isn't much time spent waiting on the locks since there aren't that many 
+threads vying for the locks. The three protected operations slow down as the 
+number of threads rise because the larger amount of threads mean that the locking 
+mechanisms actually need to be used since there are many threads that are 
+trying to access the shared counter. Thus, more time is spent by the threads 
+waiting for their turn to update the counter.
+
+2.2.1: The time per mutex-protected operation in Part 1 has a sublinear 
+relationship with the number of threads while the time per mutex-protected 
+operation in Part 2 has what seems to be a linear relationship with the 
+number of threads. The curve for Part 1 initially rises and then flattens out 
+but doesn't seem to hit an asymptote at least for the graph generate for this 
+range of threads while the slope of Part 1 stays relatively constant but 
+still has a bit of a decreasing slope. The rate of increase is defintely 
+higher for the sorted-lists example which might be due to the fact that list 
+operations are more complicated and spend more time in the critical section 
+than add operations leading to locks being held for longer and more 
+contention for list operations in comparison to the very small add operations.
+The near constant time per operation in Part 1 is because the each CPU cycle 
+is doing something useful, not just spinning. 
+
+2.2.2 The time per operation vs threads for list operations protected by 
+mutexes starts out more expensive than spin locks, however, after about 32 
+threads, spin locks actually become more expensive per operation (spin-locks 
+are cheaper initially because they have less acquisition overhead). The 
+relationship between time per op and threads for mutexes appears to be 
+approximately linear while the relationship for spin lock seems to be 
+hyperlinear (could be exponential or quadratic). The reason for this is that 
+at lower threads the chance of the thread that is currently scheduled 
+having the spin lock is much more likely than at higher threads where the 
+scheduled thread is most likely one that doesn't have the spin lock and is just 
+spinning and wasting CPU time. In comparison, when a thread cannot acquire 
+a mutex, it simply goes to sleep and yield control back to the kernel, 
+allowing the thread that actually has the mutex to get control without 
+wasting CPU time spinning.
+
+References:
+https://www.ibm.com/docs/en/xl-c-and-cpp-aix/16.1?topic=functions-sync-val-compare-swap
+https://www.ibm.com/docs/en/xcfbg/121.141?topic=functions-sync-lock-test-set
+https://www.geeksforgeeks.org/thread-functions-in-c-c/
+https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html

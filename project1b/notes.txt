@@ -1,0 +1,6 @@
+Server stops proceessing data when he gets EOF and prints termination status.
+
+Client exits when he gets hangup on socket to server.
+
+set avail in to 0, and next in to Z_NULL
+
